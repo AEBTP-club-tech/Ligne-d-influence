@@ -105,6 +105,6 @@ Copiez ce dossier sur une autre machine Windows pour lancer un calcul sans recom
 5. Proposez une Pull Request en détaillant l’impact sur les calculs/export.
 
 ## Licence
-Licence à préciser (non fournie). Ajoutez un fichier `LICENSE` si vous décidez d’en publier une.
+Le projet est distribué sous licence MIT. Le texte complet se trouve dans `license.txt` et doit accompagner toute redistribution du code ou des binaires.
 
 
