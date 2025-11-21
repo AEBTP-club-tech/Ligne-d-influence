@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Ligne d'influence/Ligne d'influence.vcxproj" Id="9d6a4589-37b7-4f4f-80bf-4084798650c1" />
+</Solution>
