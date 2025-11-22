@@ -54,14 +54,14 @@ def open_json(fils : str = "total_abscissas", src_fils = "influence_lines" ):
         """
     try:
         a = "Cas : 1"
-        file_path = os.getcwd() + "/../../../data/results/" + src_fils+"/"+ fils
+        file_path = os.getcwd() + "/data/results/" + src_fils+"/"+ fils
         with open(file_path + ".json", "r", encoding="utf-8") as file:
             return json.load(file)
         
     except FileNotFoundError:
         try:
             a = "Cas : 2"
-            file_path =os.getcwd() + "/data/results/" + src_fils+"/"+ fils 
+            file_path =os.getcwd() + "/../../../data/results/" + src_fils+"/"+ fils 
             with open(file_path + ".json", "r", encoding="utf-8") as file:
                 return json.load(file)
         except:

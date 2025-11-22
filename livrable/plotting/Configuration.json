@@ -3,7 +3,7 @@
     "travee": true,
     "noeud": true,
     "vitesse": 10,
-    "vitesse_bridge": 0.005,
+    "vitesse_bridge": 0.001,
     "legend": true,
     "axe_y_inverser": true,
     "default_matplotlib_color": true,
@@ -28,5 +28,6 @@
         "legend_position": "best",
         "marker_style": "o",
         "legend_fontsize": 10
-    }
+    },
+    "max_area": true
 }

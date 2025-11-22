@@ -142,5 +142,5 @@ def TRACE(lines:str ="span_moments" , span:int=None ,section:int=None ,legend:bo
         SOLO(lines, span=span,legend=legend)
 
 if __name__ == "__main__":
-    TRACE("span_shear_forces", span=4, max=True)    
+    TRACE("span_shear_forces", span=4, max=True, area=True)    
     plt.show() 
