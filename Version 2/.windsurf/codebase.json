@@ -1,0 +1,159 @@
+{
+  "name": "Ligne d'Influence - Structural Analysis",
+  "description": "Multi-span bridge structural analysis application with GUI visualization",
+  "version": "1.0",
+  "structure": {
+    "src": {
+      "path": "src",
+      "description": "Main source code",
+      "type": "directory",
+      "files": [
+        {
+          "name": "lñ.py",
+          "description": "Main GUI application (PyQt6) - 1957 lines",
+          "type": "python",
+          "key_classes": [
+            "CalculationWorker",
+            "StructuralAnalysisGUI"
+          ]
+        },
+        {
+          "name": "utils.py",
+          "description": "Utility functions and default configuration",
+          "type": "python"
+        },
+        {
+          "name": "snake_game.py",
+          "description": "Bonus snake game",
+          "type": "python"
+        }
+      ]
+    },
+    "config": {
+      "path": "config",
+      "description": "Configuration files",
+      "type": "directory",
+      "files": [
+        {
+          "name": "Configuration.json",
+          "description": "Application settings",
+          "type": "json"
+        },
+        {
+          "name": "input.txt",
+          "description": "Input data for C++ calculation",
+          "type": "text"
+        },
+        {
+          "name": "automation_config.py",
+          "description": "Automation configuration",
+          "type": "python"
+        }
+      ]
+    },
+    "reports": {
+      "path": "reports",
+      "description": "Report generation and output",
+      "type": "directory",
+      "files": [
+        {
+          "name": "generate_report.py",
+          "description": "Report generation script (194 lines)",
+          "type": "python",
+          "key_functions": [
+            "load_json",
+            "get_all_json_files",
+            "generate_report",
+            "save_report"
+          ]
+        }
+      ]
+    },
+    "utils_modules": {
+      "path": "utils_modules",
+      "description": "Utility modules",
+      "type": "directory",
+      "files": [
+        {
+          "name": "help_content.py",
+          "description": "HTML help and about content",
+          "type": "python"
+        },
+        {
+          "name": "styles.py",
+          "description": "Dark theme stylesheet",
+          "type": "python"
+        }
+      ]
+    },
+    "assets": {
+      "path": "assets",
+      "description": "Application icons and resources",
+      "type": "directory"
+    },
+    "data": {
+      "path": "data",
+      "description": "Calculation data and results",
+      "type": "directory",
+      "subdirs": [
+        "results/analysis",
+        "results/properties",
+        "results/boundary_conditions",
+        "results/influence_lines"
+      ]
+    }
+  },
+  "entry_points": [
+    {
+      "name": "Main Application",
+      "file": "main.py",
+      "command": "python main.py"
+    },
+    {
+      "name": "GUI",
+      "file": "src/lñ.py",
+      "class": "StructuralAnalysisGUI"
+    },
+    {
+      "name": "Report Generator",
+      "file": "reports/generate_report.py",
+      "function": "save_report"
+    }
+  ],
+  "features": [
+    "Visualization of influence lines and structural analysis",
+    "Animation with configurable speed",
+    "Configuration management",
+    "C++ calculation engine integration",
+    "Automatic report generation"
+  ],
+  "curve_types": [
+    "span_moments",
+    "span_shear_forces",
+    "span_rotations",
+    "span_deflections",
+    "support_moments",
+    "support_reactions"
+  ],
+  "dependencies": {
+    "python": [
+      "PyQt6",
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "Pillow"
+    ],
+    "external": [
+      "Ligne d'influence.exe"
+    ]
+  },
+  "shortcuts": {
+    "Ctrl+Q": "Quit",
+    "Ctrl+P": "Plot",
+    "Ctrl+A": "Animate",
+    "Ctrl+Shift+A": "Animate Full",
+    "Ctrl+M": "Show Maximum",
+    "F11": "Fullscreen",
+    "F1": "Help"
+  }
+}

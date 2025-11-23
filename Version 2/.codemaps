@@ -1,0 +1,312 @@
+{
+  "version": "1.0",
+  "name": "Ligne d'Influence - Structural Analysis",
+  "description": "Multi-span bridge structural analysis application with GUI visualization",
+  "root": ".",
+  "structure": {
+    "src": {
+      "description": "Main source code",
+      "children": {
+        "lñ.py": {
+          "description": "Main GUI application (PyQt6) - ~1957 lines",
+          "type": "file",
+          "language": "python",
+          "key_classes": [
+            "CalculationWorker - Thread worker for C++ calculations",
+            "StructuralAnalysisGUI - Main application window"
+          ],
+          "key_methods": [
+            "load_configuration() - Load settings from JSON",
+            "setup_ui() - Create main UI layout",
+            "create_menu_bar() - Create menu system",
+            "plot_current_selection() - Plot selected curve",
+            "animate_current_selection() - Animate curve",
+            "run_calculation() - Launch C++ engine"
+          ]
+        },
+        "utils.py": {
+          "description": "Utility functions and default configuration",
+          "type": "file",
+          "language": "python",
+          "key_exports": [
+            "DEFAULT_CONFIG - Default application settings",
+            "current_config - Global config reference",
+            "Data loading functions",
+            "Plot styling functions",
+            "Animation helpers"
+          ]
+        },
+        "snake_game.py": {
+          "description": "Bonus snake game",
+          "type": "file",
+          "language": "python"
+        }
+      }
+    },
+    "config": {
+      "description": "Configuration files",
+      "children": {
+        "Configuration.json": {
+          "description": "Application settings (grid, legend, speed, etc.)",
+          "type": "file",
+          "format": "json",
+          "key_fields": [
+            "grid - Show grid on plots",
+            "travee - Show span markers",
+            "noeud - Show node markers",
+            "legend - Show legend",
+            "axe_y_inverser - Invert Y axis",
+            "vitesse_bridge - Animation speed",
+            "max_area - Use max area vs max point"
+          ]
+        },
+        "automation_config.py": {
+          "description": "Automation configuration",
+          "type": "file",
+          "language": "python"
+        },
+        "input.txt": {
+          "description": "Input data for C++ calculation engine",
+          "type": "file",
+          "format": "text"
+        }
+      }
+    },
+    "reports": {
+      "description": "Generated reports and report generation",
+      "children": {
+        "generate_report.py": {
+          "description": "Report generation script - 194 lines",
+          "type": "file",
+          "language": "python",
+          "key_functions": [
+            "load_json(filename) - Load JSON with error handling",
+            "get_all_json_files(directory) - Get all JSON files",
+            "generate_report() - Generate complete report",
+            "save_report(filename) - Save report to file"
+          ],
+          "report_sections": [
+            "Structural Properties",
+            "Analysis Results",
+            "Summary & Recommendations"
+          ]
+        },
+        "RAPPORT_CALCUL.txt": {
+          "description": "Generated text report with pandas tables",
+          "type": "file",
+          "format": "text",
+          "generated": true
+        },
+        "RAPPORT_CALCUL.html": {
+          "description": "Generated HTML formatted report",
+          "type": "file",
+          "format": "html",
+          "generated": true
+        }
+      }
+    },
+    "utils_modules": {
+      "description": "Utility modules for styling and help content",
+      "children": {
+        "help_content.py": {
+          "description": "HTML content for help and about dialogs",
+          "type": "file",
+          "language": "python",
+          "exports": [
+            "HELP_CONTENT_HTML",
+            "ABOUT_CONTENT_HTML"
+          ]
+        },
+        "styles.py": {
+          "description": "Dark theme stylesheet (QSS) for PyQt6",
+          "type": "file",
+          "language": "python",
+          "exports": [
+            "DARK_THEME_STYLESHEET"
+          ]
+        }
+      }
+    },
+    "assets": {
+      "description": "Resources (icons, images)",
+      "children": {
+        "istockphoto-1077739826-1024x1024.ico": {
+          "description": "Main application icon",
+          "type": "file",
+          "format": "icon"
+        },
+        "gLigne d'influence.ico": {
+          "description": "Alternative application icon",
+          "type": "file",
+          "format": "icon"
+        }
+      }
+    },
+    "data": {
+      "description": "Calculation data and results",
+      "children": {
+        "results": {
+          "description": "Calculation results",
+          "children": {
+            "analysis": {
+              "description": "Analysis results in JSON format",
+              "children": {
+                "max_span_moments.json": {
+                  "description": "Maximum moments per span",
+                  "type": "file",
+                  "format": "json"
+                },
+                "max_span_shear_forces.json": {
+                  "description": "Maximum shear forces per span",
+                  "type": "file",
+                  "format": "json"
+                },
+                "largest_moment_areas.json": {
+                  "description": "Top 10 moment areas",
+                  "type": "file",
+                  "format": "json"
+                }
+              }
+            },
+            "properties": {
+              "description": "Structural properties in JSON format",
+              "children": {
+                "span_lengths.json": {
+                  "description": "Span lengths",
+                  "type": "file",
+                  "format": "json"
+                },
+                "young_modulus.json": {
+                  "description": "Young's modulus values",
+                  "type": "file",
+                  "format": "json"
+                },
+                "moment_of_inertia.json": {
+                  "description": "Moment of inertia values",
+                  "type": "file",
+                  "format": "json"
+                }
+              }
+            },
+            "boundary_conditions": {
+              "description": "Boundary conditions data",
+              "type": "directory"
+            },
+            "influence_lines": {
+              "description": "Influence lines data",
+              "type": "directory"
+            }
+          }
+        }
+      }
+    }
+  },
+  "entry_points": {
+    "main": {
+      "file": "main.py",
+      "description": "Application entry point",
+      "command": "python main.py"
+    },
+    "gui": {
+      "file": "src/lñ.py",
+      "description": "Main GUI application",
+      "class": "StructuralAnalysisGUI"
+    },
+    "report": {
+      "file": "reports/generate_report.py",
+      "description": "Generate calculation reports",
+      "function": "save_report()"
+    }
+  },
+  "key_features": [
+    "Visualization - Plot influence lines, moments, shear forces, rotations, deflections",
+    "Animation - Animate curves with configurable speed, export to GIF",
+    "Configuration - Persistent settings for display options and preferences",
+    "Calculation - Launch C++ calculation engine and load results",
+    "Reporting - Automatic report generation from JSON data"
+  ],
+  "curve_types": [
+    "span_moments - Moments de Travée",
+    "span_shear_forces - Forces de Cisaillement",
+    "span_rotations - Rotations",
+    "span_deflections - Deflexions",
+    "support_moments - Moments d'Appui",
+    "support_reactions - Réactions d'Appui"
+  ],
+  "dependencies": {
+    "python_packages": [
+      "PyQt6 - GUI framework",
+      "matplotlib - Plotting and animation",
+      "numpy - Numerical computations",
+      "pandas - Data manipulation and tables",
+      "Pillow - Image processing"
+    ],
+    "external": [
+      "Ligne d'influence.exe - C++ calculation engine"
+    ]
+  },
+  "keyboard_shortcuts": {
+    "Ctrl+Q": "Quit application",
+    "Ctrl+P": "Plot current selection",
+    "Ctrl+A": "Animate current selection",
+    "Ctrl+Shift+A": "Animate full curve",
+    "Ctrl+M": "Show maximum",
+    "F11": "Toggle fullscreen",
+    "F1": "Show help"
+  },
+  "menu_structure": {
+    "📁 Fichier": [
+      "✏️ Édition - Edit input.txt",
+      "⚙️ Calcul - Launch C++ calculation",
+      "💾 Sauvegarde & Export - Save config, export GIF",
+      "❌ Quitter - Quit"
+    ],
+    "📊 Visualisation": [
+      "📈 Tracer - Plot selected curve",
+      "🎬 Animation - Animate curves",
+      "⭐ Afficher Maximum - Show max values"
+    ],
+    "⚙️ Configuration": [
+      "👁️ Affichage - Display options",
+      "📐 Axes - Axis options",
+      "🎨 Style - Style preferences"
+    ],
+    "❓ Aide": [
+      "📖 Guide - User guide",
+      "ℹ️ À Propos - About dialog",
+      "📊 Rapport - Text report"
+    ]
+  },
+  "data_flow": {
+    "step_1": "User configures options in GUI (lñ.py)",
+    "step_2": "Edit input.txt or run C++ calculation",
+    "step_3": "Results saved to data/results/analysis/ and data/results/properties/",
+    "step_4": "Load JSON data via utils.py",
+    "step_5": "Render plots with matplotlib or generate reports",
+    "step_6": "Display in GUI or export as GIF/text/HTML"
+  },
+  "file_io": {
+    "reading": [
+      "Configuration.json - App settings",
+      "input.txt - Calculation input",
+      "data/results/analysis/*.json - Analysis results",
+      "data/results/properties/*.json - Structural properties",
+      "assets/*.ico - Application icons"
+    ],
+    "writing": [
+      "Configuration.json - Save settings",
+      "RAPPORT_CALCUL.txt - Generated report",
+      "animation.gif - Exported animation"
+    ]
+  },
+  "threading": {
+    "main_thread": "PyQt event loop for UI rendering and user input",
+    "worker_thread": "CalculationWorker for C++ calculation execution"
+  },
+  "performance_notes": [
+    "Data caching in self.data_cache to avoid repeated file I/O",
+    "Threading keeps UI responsive during calculations",
+    "FuncAnimation uses efficient matplotlib rendering",
+    "Configuration loaded once at startup"
+  ]
+}

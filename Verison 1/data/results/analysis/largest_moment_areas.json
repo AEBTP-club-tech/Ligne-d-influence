@@ -1,0 +1,17 @@
+{
+    "plus_grande_aire": [
+        {"aire": 24.1218, "index_aire": 0, "section": 22, "travee": 1}
+    ],
+    "top_10_aires": [
+        {"aire": 24.1218, "index_aire": 0, "section": 22, "travee": 1},
+        {"aire": 6.39788, "index_aire": 0, "section": 10, "travee": 0},
+        {"aire": 6.34322, "index_aire": 0, "section": 11, "travee": 0},
+        {"aire": 6.28857, "index_aire": 0, "section": 12, "travee": 0},
+        {"aire": 6.23391, "index_aire": 0, "section": 13, "travee": 0},
+        {"aire": 6.17925, "index_aire": 0, "section": 14, "travee": 0},
+        {"aire": 6.1246, "index_aire": 0, "section": 15, "travee": 0},
+        {"aire": 6.06994, "index_aire": 0, "section": 16, "travee": 0},
+        {"aire": 6.01528, "index_aire": 0, "section": 17, "travee": 0},
+        {"aire": 5.96063, "index_aire": 0, "section": 18, "travee": 0}
+    ]
+}

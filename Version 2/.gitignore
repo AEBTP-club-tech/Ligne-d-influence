@@ -1,0 +1,68 @@
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environnement virtuel
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Rapports générés
+reports/RAPPORT_CALCUL.txt
+reports/RAPPORT_CALCUL.html
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.log
+*.gif
+
+# Configuration locale
+config/Configuration.json.local
+config/input.local.txt
+
+# Cache matplotlib
+.matplotlib/
+
+# Fichiers de test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Fichiers de données temporaires
+data/results/temp/
+*.cache
+
+# Fichiers système
+Thumbs.db
+.DS_Store
