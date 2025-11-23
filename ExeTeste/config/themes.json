@@ -1,0 +1,101 @@
+{
+  "themes": {
+    "dark": {
+      "name": "Thème Sombre",
+      "description": "Thème sombre moderne avec couleurs bleues",
+      "colors": {
+        "background": "#2b2b2b",
+        "foreground": "#ffffff",
+        "primary": "#4a9eff",
+        "secondary": "#3498db",
+        "accent": "#f39c12",
+        "success": "#27ae60",
+        "warning": "#e74c3c",
+        "error": "#c0392b",
+        "border": "#3d3d3d"
+      },
+      "stylesheet": "QMainWindow { background-color: #2b2b2b; } QWidget { background-color: #2b2b2b; color: #ffffff; } QPushButton { background-color: #3d3d3d; color: #ffffff; border: none; padding: 8px; border-radius: 4px; font-weight: bold; } QPushButton:hover { background-color: #4a9eff; } QPushButton:pressed { background-color: #2d7acc; } QCheckBox { color: #ffffff; spacing: 8px; font-weight: bold; } QCheckBox::indicator { width: 20px; height: 20px; border-radius: 3px; } QCheckBox::indicator:unchecked { background-color: #3d3d3d; border: 2px solid #666666; } QCheckBox::indicator:checked { background-color: #27ae60; border: 2px solid #27ae60; image: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='2' y='16' font-size='16' font-weight='bold' fill='white'>✓</text></svg>); } QCheckBox::indicator:checked:hover { background-color: #2ecc71; } QMenuBar { background-color: #2b2b2b; color: #ffffff; border-bottom: 1px solid #3d3d3d; } QMenu { background-color: #2b2b2b; color: #ffffff; border: 1px solid #3d3d3d; } QMenu::item:selected { background-color: #4a9eff; }"
+    },
+    "light": {
+      "name": "Thème Clair",
+      "description": "Thème clair avec couleurs neutres",
+      "colors": {
+        "background": "#ffffff",
+        "foreground": "#000000",
+        "primary": "#0066cc",
+        "secondary": "#0099ff",
+        "accent": "#ff9900",
+        "success": "#00cc00",
+        "warning": "#ff6600",
+        "error": "#cc0000",
+        "border": "#cccccc"
+      },
+      "stylesheet": "QMainWindow { background-color: #ffffff; } QWidget { background-color: #ffffff; color: #000000; } QPushButton { background-color: #e0e0e0; color: #000000; border: 1px solid #999999; padding: 8px; border-radius: 4px; font-weight: bold; } QPushButton:hover { background-color: #0066cc; color: #ffffff; } QPushButton:pressed { background-color: #004499; } QCheckBox { color: #000000; spacing: 8px; font-weight: bold; } QCheckBox::indicator { width: 20px; height: 20px; border-radius: 3px; } QCheckBox::indicator:unchecked { background-color: #ffffff; border: 2px solid #cccccc; } QCheckBox::indicator:checked { background-color: #27ae60; border: 2px solid #27ae60; image: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='2' y='16' font-size='16' font-weight='bold' fill='white'>✓</text></svg>); } QCheckBox::indicator:checked:hover { background-color: #2ecc71; } QMenuBar { background-color: #f5f5f5; color: #000000; border-bottom: 1px solid #cccccc; } QMenu { background-color: #ffffff; color: #000000; border: 1px solid #cccccc; } QMenu::item:selected { background-color: #0066cc; color: #ffffff; }"
+    },
+    "ocean": {
+      "name": "Thème Océan",
+      "description": "Thème inspiré par les teintes océaniques",
+      "colors": {
+        "background": "#0a1929",
+        "foreground": "#e3f2fd",
+        "primary": "#00bcd4",
+        "secondary": "#0288d1",
+        "accent": "#ffeb3b",
+        "success": "#4caf50",
+        "warning": "#ff9800",
+        "error": "#f44336",
+        "border": "#1a3a52"
+      },
+      "stylesheet": "QMainWindow { background-color: #0a1929; } QWidget { background-color: #0a1929; color: #e3f2fd; } QPushButton { background-color: #1a3a52; color: #e3f2fd; border: 1px solid #00bcd4; padding: 8px; border-radius: 4px; font-weight: bold; } QPushButton:hover { background-color: #00bcd4; color: #0a1929; } QPushButton:pressed { background-color: #0097a7; } QCheckBox { color: #e3f2fd; spacing: 8px; font-weight: bold; } QCheckBox::indicator { width: 20px; height: 20px; border-radius: 3px; } QCheckBox::indicator:unchecked { background-color: #1a3a52; border: 2px solid #00bcd4; } QCheckBox::indicator:checked { background-color: #27ae60; border: 2px solid #27ae60; image: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='2' y='16' font-size='16' font-weight='bold' fill='white'>✓</text></svg>); } QCheckBox::indicator:checked:hover { background-color: #2ecc71; } QMenuBar { background-color: #0a1929; color: #e3f2fd; border-bottom: 1px solid #1a3a52; } QMenu { background-color: #0a1929; color: #e3f2fd; border: 1px solid #1a3a52; } QMenu::item:selected { background-color: #00bcd4; color: #0a1929; }"
+    },
+    "forest": {
+      "name": "Thème Forêt",
+      "description": "Thème inspiré par les teintes de la nature",
+      "colors": {
+        "background": "#1b3a1b",
+        "foreground": "#e8f5e9",
+        "primary": "#4caf50",
+        "secondary": "#66bb6a",
+        "accent": "#ffb74d",
+        "success": "#81c784",
+        "warning": "#ffa726",
+        "error": "#ef5350",
+        "border": "#2e7d32"
+      },
+      "stylesheet": "QMainWindow { background-color: #1b3a1b; } QWidget { background-color: #1b3a1b; color: #e8f5e9; } QPushButton { background-color: #2e7d32; color: #e8f5e9; border: 1px solid #4caf50; padding: 8px; border-radius: 4px; font-weight: bold; } QPushButton:hover { background-color: #4caf50; color: #1b3a1b; } QPushButton:pressed { background-color: #388e3c; } QCheckBox { color: #e8f5e9; spacing: 8px; font-weight: bold; } QCheckBox::indicator { width: 20px; height: 20px; border-radius: 3px; } QCheckBox::indicator:unchecked { background-color: #2e7d32; border: 2px solid #4caf50; } QCheckBox::indicator:checked { background-color: #27ae60; border: 2px solid #27ae60; image: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='2' y='16' font-size='16' font-weight='bold' fill='white'>✓</text></svg>); } QCheckBox::indicator:checked:hover { background-color: #2ecc71; } QMenuBar { background-color: #1b3a1b; color: #e8f5e9; border-bottom: 1px solid #2e7d32; } QMenu { background-color: #1b3a1b; color: #e8f5e9; border: 1px solid #2e7d32; } QMenu::item:selected { background-color: #4caf50; color: #1b3a1b; }"
+    },
+    "sunset": {
+      "name": "Thème Coucher de Soleil",
+      "description": "Thème avec des teintes chaudes de coucher de soleil",
+      "colors": {
+        "background": "#2c1810",
+        "foreground": "#ffe8d6",
+        "primary": "#ff6b35",
+        "secondary": "#f7931e",
+        "accent": "#fdb833",
+        "success": "#a4de6c",
+        "warning": "#ff9a56",
+        "error": "#d32f2f",
+        "border": "#5c3d2e"
+      },
+      "stylesheet": "QMainWindow { background-color: #2c1810; } QWidget { background-color: #2c1810; color: #ffe8d6; } QPushButton { background-color: #5c3d2e; color: #ffe8d6; border: 1px solid #ff6b35; padding: 8px; border-radius: 4px; font-weight: bold; } QPushButton:hover { background-color: #ff6b35; color: #2c1810; } QPushButton:pressed { background-color: #e55100; } QCheckBox { color: #ffe8d6; spacing: 8px; font-weight: bold; } QCheckBox::indicator { width: 20px; height: 20px; border-radius: 3px; } QCheckBox::indicator:unchecked { background-color: #5c3d2e; border: 2px solid #ff6b35; } QCheckBox::indicator:checked { background-color: #27ae60; border: 2px solid #27ae60; image: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='2' y='16' font-size='16' font-weight='bold' fill='white'>✓</text></svg>); } QCheckBox::indicator:checked:hover { background-color: #2ecc71; } QMenuBar { background-color: #2c1810; color: #ffe8d6; border-bottom: 1px solid #5c3d2e; } QMenu { background-color: #2c1810; color: #ffe8d6; border: 1px solid #5c3d2e; } QMenu::item:selected { background-color: #ff6b35; color: #2c1810; }"
+    },
+    "purple": {
+      "name": "Thème Violet",
+      "description": "Thème élégant avec des teintes violettes",
+      "colors": {
+        "background": "#2d1b4e",
+        "foreground": "#f3e5f5",
+        "primary": "#9c27b0",
+        "secondary": "#ba68c8",
+        "accent": "#ce93d8",
+        "success": "#66bb6a",
+        "warning": "#ffb74d",
+        "error": "#ef5350",
+        "border": "#512da8"
+      },
+      "stylesheet": "QMainWindow { background-color: #2d1b4e; } QWidget { background-color: #2d1b4e; color: #f3e5f5; } QPushButton { background-color: #512da8; color: #f3e5f5; border: 1px solid #9c27b0; padding: 8px; border-radius: 4px; font-weight: bold; } QPushButton:hover { background-color: #9c27b0; color: #2d1b4e; } QPushButton:pressed { background-color: #7b1fa2; } QCheckBox { color: #f3e5f5; spacing: 8px; font-weight: bold; } QCheckBox::indicator { width: 20px; height: 20px; border-radius: 3px; } QCheckBox::indicator:unchecked { background-color: #512da8; border: 2px solid #9c27b0; } QCheckBox::indicator:checked { background-color: #27ae60; border: 2px solid #27ae60; image: url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><text x='2' y='16' font-size='16' font-weight='bold' fill='white'>✓</text></svg>); } QCheckBox::indicator:checked:hover { background-color: #2ecc71; } QMenuBar { background-color: #2d1b4e; color: #f3e5f5; border-bottom: 1px solid #512da8; } QMenu { background-color: #2d1b4e; color: #f3e5f5; border: 1px solid #512da8; } QMenu::item:selected { background-color: #9c27b0; color: #2d1b4e; }"
+    }
+  },
+  "default_theme": "dark"
+}

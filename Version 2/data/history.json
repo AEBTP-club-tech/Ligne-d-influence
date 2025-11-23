@@ -956,5 +956,132 @@
         },
         "timestamp": "2025-11-23T05:39:22.128",
         "type": ""
+    },
+    {
+        "data": {
+            "calculation_completed": {
+                "duration_ms": 31,
+                "material": "Concrete"
+            },
+            "configuration_loaded": {
+                "choix": "Concrete",
+                "division": 75,
+                "inertieVariable": false,
+                "spans": [
+                    60.0,
+                    60.0,
+                    60.0,
+                    60.0
+                ]
+            },
+            "data_exported": {
+                "duration_ms": 504,
+                "export_path": "C:\\Users\\tsara\\Desktop\\Bridge\\Ligne d'influence\\Version 2/data/results"
+            },
+            "total_duration_ms": 536
+        },
+        "timestamp": "2025-11-23T07:48:22.155",
+        "type": ""
+    },
+    {
+        "data": {
+            "calculation_completed": {
+                "duration_ms": 30,
+                "material": "Concrete"
+            },
+            "configuration_loaded": {
+                "choix": "Concrete",
+                "division": 75,
+                "inertieVariable": false,
+                "spans": [
+                    60.0,
+                    60.0,
+                    60.0,
+                    60.0
+                ]
+            },
+            "data_exported": {
+                "duration_ms": 472,
+                "export_path": "C:\\Users\\tsara\\Desktop\\Bridge\\Ligne d'influence\\Version 2/data/results"
+            },
+            "total_duration_ms": 503
+        },
+        "timestamp": "2025-11-23T07:49:34.983",
+        "type": ""
+    },
+    {
+        "data": {
+            "calculation_completed": {
+                "duration_ms": 27,
+                "material": "Concrete"
+            },
+            "configuration_loaded": {
+                "choix": "Concrete",
+                "division": 100,
+                "inertieVariable": false,
+                "spans": [
+                    20.0,
+                    25.0,
+                    20.0
+                ]
+            },
+            "data_exported": {
+                "duration_ms": 343,
+                "export_path": "C:\\Users\\tsara\\Desktop\\Bridge\\Ligne d'influence\\Version 2/data/results"
+            },
+            "total_duration_ms": 371
+        },
+        "timestamp": "2025-11-23T09:35:53.337",
+        "type": ""
+    },
+    {
+        "data": {
+            "calculation_completed": {
+                "duration_ms": 32,
+                "material": "Concrete"
+            },
+            "configuration_loaded": {
+                "choix": "Concrete",
+                "division": 100,
+                "inertieVariable": false,
+                "spans": [
+                    20.0,
+                    25.0,
+                    20.0
+                ]
+            },
+            "data_exported": {
+                "duration_ms": 437,
+                "export_path": "C:\\Users\\tsara\\Desktop\\Bridge\\Ligne d'influence\\Version 2/data/results"
+            },
+            "total_duration_ms": 469
+        },
+        "timestamp": "2025-11-23T10:32:56.490",
+        "type": ""
+    },
+    {
+        "data": {
+            "calculation_completed": {
+                "duration_ms": 10,
+                "material": "Concrete"
+            },
+            "configuration_loaded": {
+                "choix": "Concrete",
+                "division": 50,
+                "inertieVariable": false,
+                "spans": [
+                    20.0,
+                    25.0,
+                    20.0
+                ]
+            },
+            "data_exported": {
+                "duration_ms": 114,
+                "export_path": "C:\\Users\\tsara\\Desktop\\Bridge\\Ligne d'influence\\Version 2/data/results"
+            },
+            "total_duration_ms": 125
+        },
+        "timestamp": "2025-11-23T10:37:34.174",
+        "type": ""
     }
 ]

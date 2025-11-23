@@ -4,50 +4,294 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide d'Utilisation - Analyse Structurelle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --background-dark: #1e272e;
+            --background-light: #2f3640;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body { 
-            font-family: Arial, sans-serif; 
-            line-height: 1.6; 
-            background-color: #2b2b2b; 
-            color: #ffffff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, var(--background-dark), var(--background-light));
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            margin: 20px auto;
         }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.1));
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Chaotianmen_Bridge.jpg') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
         h1 { 
-            color: #5dade2; 
-            border-bottom: 3px solid #3498db; 
-            padding-bottom: 10px; 
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: inline-block;
         }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        
         h2 { 
-            color: #85c1e2; 
-            margin-top: 25px; 
-            border-left: 4px solid #3498db; 
-            padding-left: 10px; 
+            color: var(--primary-color);
+            margin: 40px 0 20px;
+            padding: 10px 15px;
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 5px 5px 0;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
         }
-        h3 { 
-            color: #aed6f1; 
-            margin-top: 20px; 
+        
+        h2:hover {
+            background: rgba(52, 152, 219, 0.2);
+            padding-left: 20px;
         }
+        
+        h2 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            color: var(--text-color);
+            margin: 25px 0 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
         p { 
-            margin: 10px 0; 
-            text-align: justify; 
-            color: #e0e0e0; 
+            margin: 15px 0; 
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
         ul, ol { 
-            margin: 10px 0; 
-            padding-left: 30px; 
-            color: #e0e0e0; 
+            margin: 15px 0 15px 25px; 
+            padding-left: 0;
+            color: var(--text-secondary);
         }
+        
         li { 
-            margin: 5px 0; 
+            margin: 10px 0;
+            padding-left: 10px;
+            position: relative;
+            list-style-type: none;
         }
+        
+        li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
         code { 
-            background-color: #404040; 
-            color: #f39c12; 
-            padding: 2px 6px; 
-            border-radius: 3px; 
-            font-family: 'Courier New', monospace; 
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #f8c291;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .alert-info {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .alert-warning {
+            background: rgba(241, 196, 15, 0.1);
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .alert-success {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .tabs {
+            display: flex;
+            margin: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Styles responsifs */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
         .section { 
             margin: 20px 0; 
@@ -92,6 +336,215 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-bridge"></i> Guide d'Utilisation</h1>
+            <p>Bienvenue dans l'outil d'analyse structurelle - Votre compagnon pour l'analyse des ponts</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="openTab(event, 'introduction')">
+                <i class="fas fa-home"></i> Introduction
+            </div>
+            <div class="tab" onclick="openTab(event, 'fonctionnalites')">
+                <i class="fas fa-cogs"></i> Fonctionnalités
+            </div>
+            <div class="tab" onclick="openTab(event, 'guide')">
+                <i class="fas fa-book"></i> Guide Pas-à-Pas
+            </div>
+            <div class="tab" onclick="openTab(event, 'astuces')">
+                <i class="fas fa-lightbulb"></i> Astuces
+            </div>
+        </div>
+        
+        <div id="introduction" class="tab-content active">
+            <div class="card">
+                <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                <p>Cet outil d'analyse structurelle est conçu pour vous aider à analyser et visualiser les contraintes et les déformations des structures de ponts. Il intègre des fonctionnalités avancées pour le calcul des lignes d'influence, l'analyse des efforts et la visualisation 3D.</p>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Conseil :</strong> Utilisez les onglets ci-dessus pour naviguer entre les différentes sections de l'aide.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fas fa-bolt"></i> Démarrage Rapide</h3>
+                    <ol>
+                        <li>Créez un nouveau projet ou ouvrez un projet existant</li>
+                        <li>Définissez la géométrie de votre structure</li>
+                        <li>Appliquez les charges et les conditions aux limites</li>
+                        <li>Lancez l'analyse</li>
+                        <li>Visualisez et exportez les résultats</li>
+                    </ol>
+                    <button class="btn"><i class="fas fa-play"></i> Démarrer un nouveau projet</button>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-video"></i> Tutoriels Vidéo</h3>
+                    <p>Découvrez comment tirer le meilleur parti de l'outil avec nos tutoriels vidéo :</p>
+                    <ul>
+                        <li>Création d'un modèle de base</li>
+                        <li>Analyse avancée des contraintes</li>
+                        <li>Interprétation des résultats</li>
+                    </ul>
+                    <button class="btn btn-outline"><i class="fab fa-youtube"></i> Voir les tutoriels</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="fonctionnalites" class="tab-content">
+            <h2><i class="fas fa-star"></i> Fonctionnalités Principales</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fas fa-project-diagram"></i> Modélisation</h3>
+                    <ul>
+                        <li>Création de modèles 2D et 3D</li>
+                        <li>Bibliothèque de sections prédéfinies</li>
+                        <li>Import/Export aux formats courants</li>
+                        <li>Géométrie paramétrique</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-calculator"></i> Analyse</h3>
+                    <ul>
+                        <li>Analyse statique linéaire</li>
+                        <li>Calcul des lignes d'influence</li>
+                        <li>Vérification des contraintes</li>
+                        <li>Analyse de stabilité</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Résultats</h3>
+                    <ul>
+                        <li>Visualisation 3D interactive</li>
+                        <li>Graphiques et tableaux</li>
+                        <li>Rapports personnalisables</li>
+                        <li>Export vers Excel/CSV</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="guide" class="tab-content">
+            <h2><i class="fas fa-book"></i> Guide Pas-à-Pas</h2>
+            
+            <div class="card">
+                <h3>1. Création d'un nouveau projet</h3>
+                <p>Pour commencer un nouveau projet :</p>
+                <ol>
+                    <li>Cliquez sur <strong>Fichier > Nouveau Projet</strong></li>
+                    <li>Donnez un nom à votre projet</li>
+                    <li>Sélectionnez les unités de mesure</li>
+                    <li>Choisissez le type d'analyse</li>
+                </ol>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Important :</strong> Sauvegardez régulièrement votre travail pour éviter toute perte de données.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>2. Définition de la géométrie</h3>
+                <p>Utilisez l'outil de dessin pour créer la structure de votre pont :</p>
+                <pre><code>// Exemple de définition d'une poutre
+poutre = {
+    debut: [0, 0, 0],
+    fin: [10, 0, 0],
+    section: "IPN200",
+    materiau: "Acier S235"
+}</code></pre>
+            </div>
+        </div>
+        
+        <div id="astuces" class="tab-content">
+            <h2><i class="fas fa-lightbulb"></i> Astuces et Bonnes Pratiques</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fas fa-mouse-pointer"></i> Raccourcis clavier</h3>
+                    <ul>
+                        <li><kbd>Ctrl + N</kbd> : Nouveau projet</li>
+                        <li><kbd>Ctrl + S</kbd> : Enregistrer</li>
+                        <li><kbd>F5</kbd> : Lancer l'analyse</li>
+                        <li><kbd>F1</kbd> : Afficher l'aide</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-tools"></i> Outils avancés</h3>
+                    <ul>
+                        <li>Utilisez les modèles prédéfinis pour gagner du temps</li>
+                        <li>Personnalisez les vues avec les filtres</li>
+                        <li>Créez des rapports personnalisés</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <strong>Astuce :</strong> Utilisez la fonction de capture d'écran intégrée pour documenter vos résultats.
+                </div>
+            </div>
+        </div>
+        
+        <footer style="margin-top: 50px; text-align: center; padding: 20px; color: var(--text-secondary); font-size: 0.9em;">
+            <p>© 2025 Outil d'Analyse Structurelle - Tous droits réservés</p>
+            <p style="margin-top: 10px;">
+                <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">
+                    <i class="fas fa-question-circle"></i> Aide en ligne
+                </a>
+                <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">
+                    <i class="fas fa-envelope"></i> Support
+                </a>
+                <a href="#" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">
+                    <i class="fas fa-info-circle"></i> À propos
+                </a>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            // Masquer tous les contenus d'onglets
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Désactiver tous les onglets
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Activer l'onglet et le contenu sélectionnés
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation au chargement
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
     <h1>📚 Guide d'Utilisation - Analyse Structurelle</h1>
     
     <div class="section">
@@ -172,18 +625,56 @@
         <h3>Barre d'Outils</h3>
         <p>La barre d'outils contient les actions principales :</p>
         <ul>
-            <li><span class="icon">📈</span> <strong>Tracer</strong> : Trace la courbe sélectionnée</li>
-            <li><span class="icon">🎬</span> <strong>Animer</strong> : Lance l'animation</li>
-            <li><span class="icon">📊</span> <strong>Maximum</strong> : Affiche le maximum</li>
-            <li><span class="icon">💾</span> <strong>Sauvegarder</strong> : Sauvegarde la configuration</li>
-            <li><span class="icon">📤</span> <strong>Exporter</strong> : Exporte l'animation</li>
-            <li><span class="icon">🔲</span> <strong>Plein Écran</strong> : Active le mode plein écran</li>
-            <li><span class="icon">⚙️</span> <strong>Configuration</strong> : Ouvre le dialogue de configuration</li>
-            <li><span class="icon">📝</span> <strong>Éditer input.txt</strong> : Édite le fichier d'entrée</li>
-            <li><span class="icon">▶️</span> <strong>Lancer Calcul</strong> : Lance le calcul C++</li>
-            <li><span class="icon">📊</span> <strong>Type de Courbe</strong> : Sélectionne le type de courbe</li>
-            <li><span class="icon">🎯</span> <strong>Sélection Travée/Section</strong> : Ouvre le sélecteur</li>
-            <li><span class="icon">👁️</span> <strong>Masquer/Afficher Panneau</strong> : Bascule la visibilité du panneau</li>
+            <li><span class="icon">📉</span> <strong>Type de Courbe</strong> : Sélectionne le type de courbe <span class="shortcut">Ctrl+T</span></li>
+            <li><span class="icon">🔢</span> <strong>Sélection Travée/Section</strong> : Ouvre le sélecteur <span class="shortcut">Ctrl+N</span></li>
+            <li><span class="icon">✏️</span> <strong>Tracer</strong> : Trace la courbe sélectionnée <span class="shortcut">Ctrl+P</span></li>
+            <li><span class="icon">▶️</span> <strong>Animer Courbe</strong> : Lance l'animation de la courbe sélectionnée <span class="shortcut">Ctrl+A</span></li>
+            <li><span class="icon">⏩</span> <strong>Animer Complet</strong> : Lance l'animation complète <span class="shortcut">Ctrl+Shift+A</span></li>
+            <li><span class="icon">⭐</span> <strong>Afficher Maximum</strong> : Affiche le maximum <span class="shortcut">Ctrl+M</span></li>
+            <li><span class="icon">💿</span> <strong>Sauvegarder</strong> : Sauvegarde la configuration <span class="shortcut">Ctrl+S</span></li>
+            <li><span class="icon">🎁</span> <strong>Exporter</strong> : Exporte l'animation en GIF <span class="shortcut">Ctrl+E</span></li>
+            <li><span class="icon">👀</span> <strong>Masquer/Afficher Panneau</strong> : Bascule la visibilité du panneau <span class="shortcut">Ctrl+H</span></li>
+            <li><span class="icon">🔧</span> <strong>Configuration</strong> : Ouvre le dialogue de configuration <span class="shortcut">Ctrl+Alt+C</span></li>
+            <li><span class="icon">✍️</span> <strong>Éditer input.txt</strong> : Édite le fichier d'entrée <span class="shortcut">Ctrl+I</span></li>
+            <li><span class="icon">🚀</span> <strong>Lancer Calcul</strong> : Lance le calcul C++ <span class="shortcut">Ctrl+R</span></li>
+            <li><span class="icon">📋</span> <strong>Rapport de Calcul</strong> : Affiche le rapport de calcul <span class="shortcut">Ctrl+Alt+R</span></li>
+            <li><span class="icon">🖥️</span> <strong>Mode Plein Écran</strong> : Active le mode plein écran <span class="shortcut">F11</span></li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>⌨️ Raccourcis Clavier Complets</h2>
+        
+        <h3>Visualisation</h3>
+        <ul>
+            <li><span class="shortcut">Ctrl+P</span> : Tracer la courbe</li>
+            <li><span class="shortcut">Ctrl+A</span> : Animer (Courbe Sélectionnée)</li>
+            <li><span class="shortcut">Ctrl+Shift+A</span> : Animer (Complet)</li>
+            <li><span class="shortcut">Ctrl+M</span> : Afficher Maximum</li>
+        </ul>
+        
+        <h3>Fichier</h3>
+        <ul>
+            <li><span class="shortcut">Ctrl+S</span> : Sauvegarder Configuration</li>
+            <li><span class="shortcut">Ctrl+E</span> : Exporter Animation (GIF)</li>
+            <li><span class="shortcut">Ctrl+Q</span> : Quitter l'application</li>
+        </ul>
+        
+        <h3>Configuration</h3>
+        <ul>
+            <li><span class="shortcut">Ctrl+T</span> : Type de Courbe</li>
+            <li><span class="shortcut">Ctrl+N</span> : Sélection Travée & Section</li>
+            <li><span class="shortcut">Ctrl+H</span> : Masquer/Afficher Panneau Configuration</li>
+            <li><span class="shortcut">Ctrl+Alt+C</span> : Options de Configuration</li>
+            <li><span class="shortcut">Ctrl+I</span> : Éditer input.txt</li>
+            <li><span class="shortcut">Ctrl+R</span> : Lancer le Calcul C++</li>
+            <li><span class="shortcut">Ctrl+Alt+R</span> : Afficher Rapport de Calcul</li>
+        </ul>
+        
+        <h3>Fenêtre</h3>
+        <ul>
+            <li><span class="shortcut">F11</span> : Mode Plein Écran</li>
+            <li><span class="shortcut">F1</span> : Guide d'Utilisation</li>
         </ul>
     </div>
 </body>

@@ -1,17 +1,17 @@
 {
     "plus_grande_aire": [
-        {"aire": 84.4871, "index_aire": 0, "section": 32, "travee": 0}
+        {"aire": 12.8926, "index_aire": 0, "section": 21, "travee": 0}
     ],
     "top_10_aires": [
-        {"aire": 84.4871, "index_aire": 0, "section": 32, "travee": 0},
-        {"aire": 84.2474, "index_aire": 0, "section": 33, "travee": 0},
-        {"aire": 84.0869, "index_aire": 0, "section": 31, "travee": 0},
-        {"aire": 84.0076, "index_aire": 0, "section": 34, "travee": 0},
-        {"aire": 83.7678, "index_aire": 0, "section": 35, "travee": 0},
-        {"aire": 83.6867, "index_aire": 0, "section": 30, "travee": 0},
-        {"aire": 83.528, "index_aire": 0, "section": 36, "travee": 0},
-        {"aire": 83.2865, "index_aire": 0, "section": 29, "travee": 0},
-        {"aire": 82.8862, "index_aire": 0, "section": 28, "travee": 0},
-        {"aire": 82.6483, "index_aire": 0, "section": 37, "travee": 0}
+        {"aire": 12.8926, "index_aire": 0, "section": 21, "travee": 0},
+        {"aire": 12.8666, "index_aire": 0, "section": 22, "travee": 0},
+        {"aire": 12.8405, "index_aire": 0, "section": 23, "travee": 0},
+        {"aire": 12.8144, "index_aire": 0, "section": 24, "travee": 0},
+        {"aire": 12.7587, "index_aire": 0, "section": 20, "travee": 0},
+        {"aire": 12.6284, "index_aire": 0, "section": 25, "travee": 0},
+        {"aire": 12.6248, "index_aire": 0, "section": 19, "travee": 0},
+        {"aire": 12.4908, "index_aire": 0, "section": 18, "travee": 0},
+        {"aire": 12.4423, "index_aire": 0, "section": 26, "travee": 0},
+        {"aire": 12.2562, "index_aire": 0, "section": 27, "travee": 0}
     ]
 }

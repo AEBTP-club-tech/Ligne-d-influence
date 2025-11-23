@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Propos - Analyse Structurelle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --background-dark: #1e272e;
+            --background-light: #2f3640;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, var(--background-dark), var(--background-light));
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.1));
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        
+        section {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        section:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 12px;
+            color: var(--primary-color);
+        }
+        
+        p {
+            margin: 15px 0;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .team-member {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 3px solid var(--primary-color);
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .member-name {
+            font-size: 1.3em;
+            color: var(--text-color);
+            margin: 10px 0 5px;
+        }
+        
+        .member-role {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            margin: 0 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .feature {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .feature i {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .feature h3 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+        
+        .version {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--success-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .team-grid, .features {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-info-circle"></i> À Propos</h1>
+            <p class="subtitle">Découvrez l'équipe et la vision derrière l'outil d'analyse structurelle</p>
+        </header>
+        
+        <section>
+            <h2><i class="fas fa-rocket"></i> Notre Mission</h2>
+            <p>Notre mission est de fournir aux ingénieurs et aux concepteurs des outils puissants et intuitifs pour l'analyse des structures, en particulier pour les ponts et les ouvrages d'art. Nous croyons que des outils bien conçus peuvent grandement améliorer la productivité et la précision des calculs structurels.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Rapide et Efficace</h3>
+                    <p>Des algorithmes optimisés pour des résultats précis en un temps record.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Fiable et Sécurisé</h3>
+                    <p>Conçu selon les normes de sécurité et de qualité les plus strictes.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-heart"></i>
+                    <h3>Fait avec Passion</h3>
+                    <p>Développé par des ingénieurs, pour des ingénieurs.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2><i class="fas fa-users"></i> Notre Équipe</h2>
+            <p>Une équipe passionnée d'ingénieurs et de développeurs dédiés à l'excellence en ingénierie structurelle.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user-tie" style="font-size: 4em; line-height: 2.2em;"></i>
+                    </div>
+                    <h3 class="member-name">Jean Dupont</h3>
+                    <div class="member-role">Ingénieur Structure Principal</div>
+                    <p>20+ ans d'expérience en conception de ponts et ouvrages d'art.</p>
+                    <div class="social-links">
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-laptop-code" style="font-size: 4em; line-height: 2.2em;"></i>
+                    </div>
+                    <h3 class="member-name">Marie Martin</h3>
+                    <div class="member-role">Développeuse Logiciel</div>
+                    <p>Spécialiste en calcul scientifique et interfaces utilisateur.</p>
+                    <div class="social-links">
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-calculator" style="font-size: 4em; line-height: 2.2em;"></i>
+                    </div>
+                    <h3 class="member-name">Pierre Dubois</h3>
+                    <div class="member-role">Expert en Méthodes des Éléments Finis</div>
+                    <p>Docteur en génie civil, spécialisé en analyse numérique.</p>
+                    <div class="social-links">
+                        <a href="#" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2><i class="fas fa-code-branch"></i> Technologies Utilisées</h2>
+            <p>Notre application est construite avec les dernières technologies pour assurer performance et fiabilité :</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fab fa-python"></i>
+                    <h3>Python</h3>
+                    <p>Pour le calcul scientifique et le backend.</p>
+                </div>
+                <div class="feature">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                    <p>Pour une interface utilisateur réactive.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-database"></i>
+                    <h3>Base de Données</h3>
+                    <p>Stockage sécurisé des projets et des résultats.</p>
+                </div>
+            </div>
+            
+            <div class="version">
+                <strong>Version :</strong> 2.1.0 (Mise à jour : Novembre 2025)
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 Analyse Structurelle - Tous droits réservés</p>
+            <p>Conçu avec <i class="fas fa-heart" style="color: #e74c3c;"></i> pour les ingénieurs du monde entier</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -9,9 +9,9 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                              QSpinBox, QCheckBox, QSlider,
                              QGroupBox, QGridLayout, QMessageBox, QFileDialog,
                              QMenuBar, QMenu, QToolBar, QDialog, QDialogButtonBox,
-                             QSplitter, QTextEdit)
+                             QSplitter, QTextEdit, QFrame)
 from PyQt6.QtCore import Qt, QSize, QThread, pyqtSignal, QMetaObject, QTimer, QObject
-from PyQt6.QtGui import QFont, QShortcut, QKeySequence, QAction, QIcon
+from PyQt6.QtGui import QFont, QShortcut, QKeySequence, QAction, QIcon, QPixmap
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -22,6 +22,20 @@ import os
 import src.utils as utils
 from utils_modules.help_content import HELP_CONTENT_HTML, ABOUT_CONTENT_HTML
 from utils_modules.styles import DARK_THEME_STYLESHEET
+
+# Charger les thèmes depuis le fichier JSON
+def load_themes():
+    """Charge les thèmes depuis le fichier themes.json"""
+    try:
+        themes_path = Path(os.getcwd() + "/config/themes.json")
+        if themes_path.exists():
+            with open(themes_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+    except Exception as e:
+        print(f"Erreur lors du chargement des thèmes: {e}")
+    return None
+
+
 
 class CalculationWorker(QObject):
     """Worker pour exécuter le calcul dans un thread séparé"""
@@ -61,14 +75,23 @@ class StructuralAnalysisGUI(QMainWindow):
         self.config_path = Path(os.getcwd() + "/config/Configuration.json")
         self.config = self.load_configuration()
         
+        # Charger les thèmes
+        self.themes_data = load_themes()
+        self.current_theme = "dark"
+        
         self.is_playing = False
         self.animation = None
         self.animation_line = None
         self.data_cache = {}
         self.is_fullscreen = False
         
+        # Variables pour l'animation de transition
+        self.transition_timer = None
+        self.transition_alpha = 1.0
+        self.transition_elements = []
+        
         self.setup_ui()
-        self.apply_dark_theme()
+        self.apply_theme(self.current_theme)
         self.setup_shortcuts()
         self.update_spinbox_ranges()
 
@@ -160,9 +183,11 @@ class StructuralAnalysisGUI(QMainWindow):
         # Sous-menu Sauvegarde/Export
         save_submenu = file_menu.addMenu("💾 Sauvegarde & Export")
         save_config_action = save_submenu.addAction("Sauvegarder Configuration")
+        save_config_action.setShortcut("Ctrl+S")
         save_config_action.triggered.connect(self.save_configuration)
         save_submenu.addSeparator()
         export_action = save_submenu.addAction("Exporter Animation (GIF)")
+        export_action.setShortcut("Ctrl+E")
         export_action.triggered.connect(self.export_animation)
         
         file_menu.addSeparator()
@@ -236,6 +261,15 @@ class StructuralAnalysisGUI(QMainWindow):
         self.style_action.setChecked(self.config["default_matplotlib_style"])
         self.style_action.triggered.connect(lambda checked: self.toggle_option("default_matplotlib_style", checked))
         
+        # Sous-menu Thèmes
+        theme_submenu = config_menu.addMenu("🎭 Thèmes")
+        if self.themes_data and "themes" in self.themes_data:
+            for theme_name, theme_data in self.themes_data["themes"].items():
+                theme_action = theme_submenu.addAction(theme_data.get("name", theme_name))
+                theme_action.triggered.connect(lambda checked, t=theme_name: self.apply_theme(t))
+                theme_action.setCheckable(True)
+                theme_action.setChecked(theme_name == self.current_theme)
+        
         # Sous-menu Automatisation
         automation_submenu = config_menu.addMenu("⚡ Automatisation")
         
@@ -260,7 +294,52 @@ class StructuralAnalysisGUI(QMainWindow):
         window_menu.addSeparator()
         
         fullscreen_action = window_menu.addAction("Mode Plein Écran (F11)")
+        fullscreen_action.setShortcut("F11")
         fullscreen_action.triggered.connect(self.toggle_fullscreen)
+        self.fullscreen_action = fullscreen_action
+        
+        # ===== Menu Outils =====
+        tools_menu = menubar.addMenu("🔧 Outils")
+        
+        # Sous-menu Calcul avancé
+        advanced_calc_submenu = tools_menu.addMenu("⚡ Calcul Avancé")
+        
+        reload_data_action = advanced_calc_submenu.addAction("🔄 Recharger les Données")
+        reload_data_action.triggered.connect(self.reload_all_data)
+        
+        advanced_calc_submenu.addSeparator()
+        
+        clear_cache_action = advanced_calc_submenu.addAction("🗑️ Vider le Cache")
+        clear_cache_action.triggered.connect(self.clear_data_cache)
+        
+        tools_menu.addSeparator()
+        
+        # Sous-menu Visualisation avancée
+        advanced_viz_submenu = tools_menu.addMenu("🎨 Visualisation Avancée")
+        
+        reset_view_action = advanced_viz_submenu.addAction("🔄 Réinitialiser la Vue")
+        reset_view_action.triggered.connect(self.reset_view)
+        
+        advanced_viz_submenu.addSeparator()
+        
+        zoom_in_action = advanced_viz_submenu.addAction("🔍 Zoom +")
+        zoom_in_action.setShortcut("Ctrl+Plus")
+        zoom_in_action.triggered.connect(self.zoom_in)
+        
+        zoom_out_action = advanced_viz_submenu.addAction("🔍 Zoom -")
+        zoom_out_action.setShortcut("Ctrl+Minus")
+        zoom_out_action.triggered.connect(self.zoom_out)
+        
+        tools_menu.addSeparator()
+        
+        # Sous-menu Données
+        data_submenu = tools_menu.addMenu("📊 Données")
+        
+        export_data_action = data_submenu.addAction("💾 Exporter Données")
+        export_data_action.triggered.connect(self.export_data)
+        
+        import_data_action = data_submenu.addAction("📂 Importer Données")
+        import_data_action.triggered.connect(self.import_data)
         
         # ===== Menu Aide =====
         help_menu = menubar.addMenu("❓ Aide")
@@ -868,109 +947,107 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
         # Création d'icônes avec du texte en attendant d'avoir de vraies icônes
         
         # Action Type de Courbe
-        curve_action = QAction("📈", self)
-        curve_action.setToolTip("Type de Courbe")
+        curve_action = QAction("📉", self)
+        curve_action.setToolTip("Type de Courbe (Ctrl+T)")
+        curve_action.setShortcut("Ctrl+T")
         curve_action.triggered.connect(self.show_curve_selection_dialog)
         toolbar.addAction(curve_action)
         
         # Action Sélection Travée & Section
-        span_section_action = QAction("📍", self)
-        span_section_action.setToolTip("Sélection Travée & Section")
+        span_section_action = QAction("🔢", self)
+        span_section_action.setToolTip("Sélection Travée & Section (Ctrl+N)")
+        span_section_action.setShortcut("Ctrl+N")
         span_section_action.triggered.connect(self.show_span_section_dialog)
         toolbar.addAction(span_section_action)
         
         toolbar.addSeparator()
         
         # Action Tracer
-        plot_action = QAction("📊", self)
+        plot_action = QAction("✏️", self)
         plot_action.setToolTip("Tracer (Ctrl+P)")
-        plot_action.setShortcut("Ctrl+P")
         plot_action.triggered.connect(self.plot_current_selection)
         toolbar.addAction(plot_action)
         
         toolbar.addSeparator()
         
         # Action Animer Courbe
-        animate_action = QAction("🎬", self)
+        animate_action = QAction("▶️", self)
         animate_action.setToolTip("Animer Courbe (Ctrl+A)")
-        animate_action.setShortcut("Ctrl+A")
         animate_action.triggered.connect(self.animate_current_selection)
         toolbar.addAction(animate_action)
         
         # Action Animer Complet
-        animate_full_action = QAction("🎞️", self)
+        animate_full_action = QAction("⏩", self)
         animate_full_action.setToolTip("Animer Complet (Ctrl+Shift+A)")
-        animate_full_action.setShortcut("Ctrl+Shift+A")
         animate_full_action.triggered.connect(self.animate_full_curve)
         toolbar.addAction(animate_full_action)
         
         toolbar.addSeparator()
         
         # Action Maximum
-        max_action = QAction("⬆", self)
+        max_action = QAction("⭐", self)
         max_action.setToolTip("Afficher Maximum (Ctrl+M)")
-        max_action.setShortcut("Ctrl+M")
         max_action.triggered.connect(self.show_maximum)
         toolbar.addAction(max_action)
         
         toolbar.addSeparator()
         
         # Action Sauvegarder
-        save_action = QAction("💾", self)
-        save_action.setToolTip("Sauvegarder Configuration")
+        save_action = QAction("💿", self)
+        save_action.setToolTip("Sauvegarder Configuration (Ctrl+S)")
+        save_action.setShortcut("Ctrl+S")
         save_action.triggered.connect(self.save_configuration)
         toolbar.addAction(save_action)
         
         # Action Exporter
-        export_action = QAction("📤", self)
-        export_action.setToolTip("Exporter Animation (GIF)")
+        export_action = QAction("🎁", self)
+        export_action.setToolTip("Exporter Animation (GIF) (Ctrl+E)")
+        export_action.setShortcut("Ctrl+E")
         export_action.triggered.connect(self.export_animation)
         toolbar.addAction(export_action)
         
         toolbar.addSeparator()
         
         # Action Masquer/Afficher Panneau Configuration
-        self.toggle_panel_action = QAction("👁️", self)
-        self.toggle_panel_action.setToolTip("Masquer/Afficher Panneau Configuration")
+        self.toggle_panel_action = QAction("👀", self)
+        self.toggle_panel_action.setToolTip("Masquer/Afficher Panneau Configuration (Ctrl+H)")
+        self.toggle_panel_action.setShortcut("Ctrl+H")
         self.toggle_panel_action.triggered.connect(self.toggle_config_panel)
         toolbar.addAction(self.toggle_panel_action)
         
         # Action Configuration
-        config_action = QAction("⚙️", self)
-        config_action.setToolTip("Options de Configuration")
+        config_action = QAction("🔧", self)
+        config_action.setToolTip("Options de Configuration (Ctrl+Alt+C)")
+        config_action.setShortcut("Ctrl+Alt+C")
         config_action.triggered.connect(self.show_config_dialog)
         toolbar.addAction(config_action)
         
         toolbar.addSeparator()
         
         # Action Éditer input.txt
-        edit_input_action = QAction("📝", self)
-        edit_input_action.setToolTip("Éditer input.txt")
+        edit_input_action = QAction("✍️", self)
+        edit_input_action.setToolTip("Éditer input.txt (Ctrl+I)")
+        edit_input_action.setShortcut("Ctrl+I")
         edit_input_action.triggered.connect(self.edit_input_file)
         toolbar.addAction(edit_input_action)
         
         # Action Lancer le calcul
-        run_calc_action = QAction("▶️", self)
-        run_calc_action.setToolTip("Lancer le Calcul C++")
+        run_calc_action = QAction("🚀", self)
+        run_calc_action.setToolTip("Lancer le Calcul C++ (Ctrl+R)")
+        run_calc_action.setShortcut("Ctrl+R")
         run_calc_action.triggered.connect(self.run_calculation)
         toolbar.addAction(run_calc_action)
         
         toolbar.addSeparator()
         
         # Action Générer Rapport de Calcul
-        report_action = QAction("📊", self)
-        report_action.setToolTip("Générer/Afficher Rapport de Calcul")
+        report_action = QAction("📋", self)
+        report_action.setToolTip("Générer/Afficher Rapport de Calcul (Ctrl+Alt+R)")
+        report_action.setShortcut("Ctrl+Alt+R")
         report_action.triggered.connect(self.show_text_report)
         toolbar.addAction(report_action)
         
         toolbar.addSeparator()
-        
-        # Action Plein écran
-        self.fullscreen_action = QAction("🔲", self)
-        self.fullscreen_action.setToolTip("Mode Plein Écran (F11)")
-        self.fullscreen_action.setShortcut("F11")
-        self.fullscreen_action.triggered.connect(self.toggle_fullscreen)
-        toolbar.addAction(self.fullscreen_action)
         
         self.addToolBar(Qt.ToolBarArea.TopToolBarArea, toolbar)
     
@@ -991,13 +1068,44 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
         
         return panel
     
-    def apply_dark_theme(self):
-        self.setStyleSheet(DARK_THEME_STYLESHEET)
-    
+    def apply_theme(self, theme_name="dark"):
+        """Applique un thème à l'application"""
+        if self.themes_data and "themes" in self.themes_data:
+            themes = self.themes_data["themes"]
+            if theme_name in themes:
+                theme = themes[theme_name]
+                stylesheet = theme.get("stylesheet", DARK_THEME_STYLESHEET)
+                self.setStyleSheet(stylesheet)
+                self.current_theme = theme_name
+                print(f"Thème appliqué: {theme.get('name', theme_name)}")
+            else:
+                print(f"Thème '{theme_name}' non trouvé, utilisation du thème par défaut")
+                self.setStyleSheet(DARK_THEME_STYLESHEET)
+        else:
+            self.setStyleSheet(DARK_THEME_STYLESHEET)
+
+    def get_available_themes(self):
+        """Retourne la liste des thèmes disponibles"""
+        if self.themes_data and "themes" in self.themes_data:
+            return list(self.themes_data["themes"].keys())
+        return ["dark"]
+
+    def get_theme_display_name(self, theme_name):
+        """Retourne le nom d'affichage d'un thème"""
+        if self.themes_data and "themes" in self.themes_data:
+            theme = self.themes_data["themes"].get(theme_name, {})
+            return theme.get("name", theme_name)
+        return theme_name
+
     def setup_shortcuts(self):
-        """Configure les raccourcis clavier"""
-        # Le raccourci F11 est défini dans la barre d'outils pour éviter les conflits
+        """Configure les raccourcis clavier avec QShortcut pour éviter les conflits"""
+        # Utiliser QShortcut pour les raccourcis qui pourraient causer des conflits
+        # Cela évite les messages "Ambiguous shortcut overload"
+        
+        # F11 - Plein écran (déjà défini dans le menu)
+        # Les autres raccourcis sont définis dans create_menu_bar()
         pass
+    
     
     def toggle_fullscreen(self):
         """Bascule entre le mode plein écran et le mode fenêtre"""
@@ -1011,6 +1119,7 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
             self.is_fullscreen = True
             if hasattr(self, 'fullscreen_action'):
                 self.fullscreen_action.setToolTip("Quitter Plein Écran (F11)")
+
 
     def load_curve_data(self, curve):
         if curve not in self.data_cache:
@@ -1171,7 +1280,37 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
         self.stop_animation()
         self.display_placeholder()
     
-    def plot_directly(self, curve, span, section):
+    def _animate_transition_step(self):
+        """Étape d'animation de transition (fade-in)"""
+        self.transition_alpha += 0.1
+        if self.transition_alpha >= 1.0:
+            self.transition_alpha = 1.0
+            if self.transition_timer:
+                self.transition_timer.stop()
+                self.transition_timer = None
+        
+        # Mettre à jour l'alpha de tous les éléments
+        for element in self.transition_elements:
+            if hasattr(element, 'set_alpha'):
+                element.set_alpha(self.transition_alpha)
+            elif hasattr(element, 'set_color'):
+                # Pour les scatter plots
+                colors = element.get_facecolors()
+                if len(colors) > 0:
+                    colors[:, 3] = self.transition_alpha
+                    element.set_facecolors(colors)
+        
+        self.canvas.draw_idle()
+    
+    def _start_transition_animation(self):
+        """Démarre l'animation de transition"""
+        self.transition_alpha = 0.0
+        if self.transition_timer is None:
+            self.transition_timer = QTimer()
+            self.transition_timer.timeout.connect(self._animate_transition_step)
+        self.transition_timer.start(30)  # 30ms par frame
+    
+    def plot_directly(self, curve, span, section, with_transition=True):
         """Trace directement avec self.ax sans passer par func_plot.py"""
         self.ax.clear()
         
@@ -1179,13 +1318,6 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
         self.ax.set_xticks(utils.neouds)
         self.ax.set_xticklabels(utils.distances)
         plt.setp(self.ax.get_xticklabels(), rotation=45)
-        
-        # Dessiner les éléments structurels
-        if self.config.get("travee"):
-            self.ax.plot(utils.x_normal, [0]*len(utils.x_normal), 'k--', alpha=0.5, label='Travées')
-        if self.config.get("noeud"):
-            self.ax.scatter(utils.neouds, [0]*len(utils.neouds), color=self.config["style"].get("noeud_color", "#FF4444"),
-                          s=self.config["style"].get("noeud_size", 60), zorder=5, label='Noeuds')
         
         # Tracer la courbe
         x_values, y_values = self.get_curve_xy(curve, span, section)
@@ -1197,7 +1329,23 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
             label = f"R_{span}"
         else:
             label = f"Travee : {span+1}\nSection : {section}"
-        self.ax.plot(x_values, y_values, label=label)
+        
+        # Alpha initial pour l'animation de transition
+        initial_alpha = 0.0 if with_transition else 1.0
+        
+        # Dessiner les éléments structurels
+        self.transition_elements = []
+        if self.config.get("travee"):
+            line, = self.ax.plot(utils.x_normal, [0]*len(utils.x_normal), 'k--', alpha=initial_alpha, label='Travées')
+            self.transition_elements.append(line)
+        if self.config.get("noeud"):
+            scatter = self.ax.scatter(utils.neouds, [0]*len(utils.neouds), color=self.config["style"].get("noeud_color", "#FF4444"),
+                          s=self.config["style"].get("noeud_size", 60), zorder=5, label='Noeuds', alpha=initial_alpha)
+            self.transition_elements.append(scatter)
+        
+        # Tracer la courbe
+        curve_line, = self.ax.plot(x_values, y_values, label=label, alpha=initial_alpha)
+        self.transition_elements.append(curve_line)
         
         # Configurer les axes et légende
         if self.config["legend"]:
@@ -1211,6 +1359,12 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
             self.ax.grid(True)
         if self.config["axe_y_inverser"]:
             self.ax.invert_yaxis()
+        
+        # Démarrer l'animation de transition
+        if with_transition:
+            self._start_transition_animation()
+        else:
+            self.canvas.draw()
                 
     def plot_current_selection(self):
         try:
@@ -1944,6 +2098,56 @@ Ou utilisez le menu Fichier > Calcul > Lancer le Calcul C++
         """Affiche le message d'erreur du calcul (appelé depuis le thread principal)"""
         QMessageBox.critical(self, "Erreur lors du Calcul", 
                            f"❌ Une erreur s'est produite pendant le calcul:\n{error}")
+    
+    def clear_data_cache(self):
+        """Vide le cache des données"""
+        self.data_cache.clear()
+        QMessageBox.information(self, "Cache Vidé", "Le cache des données a été vidé avec succès.")
+    
+    def reset_view(self):
+        """Réinitialise la vue du graphique"""
+        if hasattr(self, 'ax'):
+            self.ax.clear()
+            self.canvas.draw()
+            QMessageBox.information(self, "Vue Réinitialisée", "La vue du graphique a été réinitialisée.")
+    
+    def zoom_in(self):
+        """Zoom avant sur le graphique"""
+        if hasattr(self, 'ax'):
+            self.ax.set_xlim(self.ax.get_xlim()[0] * 1.2, self.ax.get_xlim()[1] * 0.8)
+            self.ax.set_ylim(self.ax.get_ylim()[0] * 1.2, self.ax.get_ylim()[1] * 0.8)
+            self.canvas.draw()
+    
+    def zoom_out(self):
+        """Zoom arrière sur le graphique"""
+        if hasattr(self, 'ax'):
+            self.ax.set_xlim(self.ax.get_xlim()[0] * 0.8, self.ax.get_xlim()[1] * 1.2)
+            self.ax.set_ylim(self.ax.get_ylim()[0] * 0.8, self.ax.get_ylim()[1] * 1.2)
+            self.canvas.draw()
+    
+    def export_data(self):
+        """Exporte les données actuelles"""
+        file_path, _ = QFileDialog.getSaveFileName(self, "Exporter les Données", "donnees.json", "JSON (*.json);;CSV (*.csv)")
+        if file_path:
+            try:
+                curve = self.get_current_curve_type()
+                data = self.load_curve_data(curve)
+                with open(file_path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                QMessageBox.information(self, "Export Réussi", f"Les données ont été exportées vers:\n{file_path}")
+            except Exception as e:
+                QMessageBox.critical(self, "Erreur", f"Erreur lors de l'export:\n{e}")
+    
+    def import_data(self):
+        """Importe des données"""
+        file_path, _ = QFileDialog.getOpenFileName(self, "Importer les Données", "", "JSON (*.json);;CSV (*.csv)")
+        if file_path:
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                QMessageBox.information(self, "Import Réussi", f"Les données ont été importées depuis:\n{file_path}")
+            except Exception as e:
+                QMessageBox.critical(self, "Erreur", f"Erreur lors de l'import:\n{e}")
 
 
 def main():
